@@ -1,5 +1,5 @@
 # Human Trafficking Global Data
-Pulling together global human trafficking data in comparison to country wealth and labour force.
+Pulling together global human trafficking data related to country wealth and labour force.
 
 
 ## Data Sources:
