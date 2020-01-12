@@ -1,6 +1,7 @@
 # Import dependencies for python flask module
 
 from flask import Flask, jsonify
+import json
 
 #importing dependencies from sqlalchemy to connect to DataBase in the back end
 
@@ -12,14 +13,8 @@ from sqlalchemy import create_engine, func
 #importing dependencies for python
 import numpy as np
 import os
-import datetime as dt
-from dateutil.relativedelta import relativedelta
-import json
-from bson import json_util
 
 
-
-#from app import db
 
 ######################
 # Database Setup
@@ -32,7 +27,6 @@ db_name = 'ETL-Project'
 connection_string = f"{pg_user}:{pg_password}@localhost:5433/{db_name}"
 engine = create_engine(f'postgresql://{connection_string}')
 
-print(engine)
 
 # reflect an existing database into a new model
 
@@ -41,12 +35,10 @@ Base = automap_base()
 Base.prepare(engine, reflect=True)
 
 # Save references to each table
-#table1 = Base.classes.table1
+
 Income = Base.classes.country_income 
 traffiking_details = Base.classes.global_traffiking
 Countries = Base.classes.countries
-
-#table3 = Base.classes.table3
 
 
 ######################
@@ -54,7 +46,7 @@ Countries = Base.classes.countries
 ######################
 
 app = Flask(__name__)
-# Create an App
+
 
 # Define route to homepage
 
@@ -62,72 +54,65 @@ app = Flask(__name__)
 def home():
         return (f"Welcome to Our Home Page<br/><br/>"
                 f"Available Routes:<br/><br/>"
-                f"/api/v1.0/exploit<br/>"
                 f"/api/v1.0/income<br/>" 
-                f"/api/v1.0/country-codes<br/><br/>"
-                f"/api/v1.0/gender-stats<br/><br/>")
+                f"/api/v1.0/country-codes<br/>"
+                f"/api/v1.0/ages<br/>"
+                f"/api/v1.0/years<br/>"
+                f"/api/v1.0/gender<br/><br/>")
                 
 
-@app.route("/api/v1.0/gender-stats")
+@app.route("/api/v1.0/ages")
+def age():
+    """Age Ranges"""
+
+
+    # Create our session (link) from Python to the DB
+    session = Session(engine)
+    
+    # Query unique age ranges
+    age = session.query(traffiking_details.Age_Range).distinct().all()
+
+    session.close()
+
+    agerange_list = list(np.ravel(age))
+
+    
+    return jsonify(agerange_list)
+
+
+@app.route("/api/v1.0/years")
+def years():
+    """Years"""
+
+
+    # Create our session (link) from Python to the DB
+    session = Session(engine)
+    
+    # Query distinct years from main table
+    year = session.query(traffiking_details.Year_Identified).distinct().order_by(traffiking_details.Year_Identified).all()
+
+    session.close()
+
+    year_list = str(np.ravel(year))
+
+    
+    return jsonify(year_list)
+
+
+@app.route("/api/v1.0/gender")
 def gender():
-    """Gender Stats"""
-
-    # Create our session (link) from Python to the DB
+    """Gender"""
     session = Session(engine)
-    
-    # Query the income level and country code from income table
-    income = session.query(func.count(traffiking_details.Gender)).group_by(traffiking_details.Gender).all()
 
-    #session.close()
+    # gender count
+
+    gen = session.query(traffiking_details.Gender,func.count(traffiking_details.Gender).label('count')).group_by(traffiking_details.Gender).all()
+
     session.close()
 
-    income_list = list(np.ravel(income))
+    gen_list = str(np.ravel(gen)) 
 
-    
-    return jsonify(income_list)
-
-
-@app.route("/api/v1.0/exploit")
-def exploit():
-    """List"""
-
-    # Create our session (link) from Python to the DB
-    session = Session(engine)
-    
-    # Query the income level and country code from income table
-    income_q = session.query(Income.countrycode, Countries.country_name, Income.incomelevel).filter(Income.countrycode==Countries.country_code).all()
-
-
-    #Countries.country_name,Countries.country_code
-
-
-   #Income.countrycode, Income.incomelevel
-    #session.close()
-    session.close()
-
-    income_list = []
-
-    for country_income,countries in income_q:
-        income_dict = {}
-        income_dict["Country_name"] = countries.country_name
-        income_dict["Country-Code"] = country_income.countrycode
-        income_dict["Income-Level"] = country_income.incomelevel
-        income_list.append(income_dict)
-
-    # return JSON list of incomes
-
-    return(jsonify(income_list))
-
-
-
-    #pd.read_sql(session.query(EA.sporder, 
-     #                     EA.family.label("EA_Family"), 
-      #                    EA.genus.label("EA_Genus"), 
-       #                   EA.species.label("EA_Species"), 
-        #                  NA.family.label("NA_Family"), 
-         #                 NA.genus.label("NA_Genus"), 
-          #                NA.species.label("NA_Species")).filter(EA.sporder == NA.sporder).limit(10).statement, engine)
-
+    return jsonify(gen_list)
 
 
 # Routes for country codes and income
@@ -143,11 +128,7 @@ def income():
 
     #session.close()
     session.close()
- 
-    
-    #income_list = list(np.ravel(income))
 
-    
     #return jsonify(income_list)
 
     income_list = []
@@ -161,13 +142,6 @@ def income():
     # return JSON list of incomes
 
     return(jsonify(income_list))
-
-   
-
-    #json_docs = []
-    #for doc in income_list:
-     #   json_doc = json.dumps(doc, default=json_util.default)
-      #  json_docs.append(json_doc)
       
 
 # Route for Country names and codes
