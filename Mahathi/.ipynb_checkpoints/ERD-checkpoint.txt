@@ -1,0 +1,75 @@
+Countries
+-
+CountryName varchar
+CountryCode varchar pk
+
+Country_Income
+-
+CountryCode varchar fk - Countries.CountryCode
+Income_level varchar
+
+Global_Trafikking
+-
+Country_Code varchar fk >- Countries.CountryCode
+yearOfRegistration int
+Datasource varchar
+gender varchar(20)
+ageBroad varchar(30)
+majorityStatus varchar
+majorityStatusAtExploit varchar
+majorityEntry varchar
+citizenship varchar(5)
+meansOfControlDebtBondage varchar(10)
+meansOfControlTakesEarnings varchar
+meansOfControlRestrictsFinancialAccess varchar
+meansOfControlThreats varchar
+meansOfControlPsychologicalAbuse varchar	
+meansOfControlPhysicalAbuse varchar
+meansOfControlSexualAbuse varchar
+meansOfControlFalsePromises varchar
+meansOfControlPsychoactiveSubstances varchar
+meansOfControlRestrictsMovement varchar
+meansOfControlRestrictsMedicalCare varchar
+meansOfControlExcessiveWorkingHours varchar
+meansOfControlUsesChildren varchar
+meansOfControlThreatOfLawEnforcement varchar
+meansOfControlWithholdsNecessities varchar
+meansOfControlWithholdsDocuments varchar
+meansOfControlOther varchar
+meansOfControlNotSpecified varchar	
+meansOfControlConcatenated varchar
+isForcedLabour varchar
+isSexualExploit varchar
+isOtherExploit varchar
+isSexAndLabour varchar
+isForcedMarriage varchar
+isForcedMilitary varchar
+isOrganRemoval varchar
+typeOfExploitConcatenated varchar	
+typeOfLabourAgriculture varchar
+typeOfLabourAquafarming varchar
+typeOfLabourBegging varchar
+typeOfLabourConstruction varchar	
+typeOfLabourDomesticWork varchar	
+typeOfLabourHospitality varchar
+typeOfLabourIllicitActivities varchar	
+typeOfLabourManufacturing varchar
+typeOfLabourMiningOrDrilling varchar
+typeOfLabourPeddling varchar
+typeOfLabourTransportation varchar
+typeOfLabourOther varchar	
+typeOfLabourNotSpecified varchar	
+typeOfLabourConcatenated varchar	
+typeOfSexProstitution varchar	
+typeOfSexPornography varchar	
+typeOfSexRemoteInteractiveServices varchar	
+typeOfSexPrivateSexualServices varchar	
+typeOfSexConcatenated varchar	
+isAbduction varchar
+RecruiterRelationship varchar	
+CountryOfExploitation varchar	
+recruiterRelationIntimatePartner varchar	
+recruiterRelationFriend varchar
+recruiterRelationFamily varchar
+recruiterRelationOther varchar	
+recruiterRelationUnknown varchar
