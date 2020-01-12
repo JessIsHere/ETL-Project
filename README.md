@@ -22,16 +22,27 @@ Data Sources
   from 2012 - 2017. 
 
 Transformation
+
   Jessica: Restructured the main dataset to focus on reports and details of labor trafficking (the original included sex
-  trafficking data, as well as recruiting relationships). 
+  trafficking data, as well as recruiting relationships). Many rows contained "-99" as a value. At first we considered 
+  removing or changing most of these values. After reading the documnentation associated with the data, we realized it was
+  relevant to keep them in the database.
+  
+  Mahatmi: Deleted duplicate data from the country codes csv file. The Alpha-2 codes contained "" around the codes in her csv.
+  She removed the "" from the codes so that they could act as keys in the database. 
+    
+  Jeff: Looped through the API response to create a list of dictionaries that were appended to a list. Converted to a
+  dataframe and removed the aggregates entry. 
+ 
   
 Database
+
   Initailly we determined that SQL would  provide a clear structure to our data. We wanted to use the country codes as the
   primary key for our tables. Definitely would use MongoDB next time. 
   
   Schema:https://files.slack.com/files-pri/TM10668R1-FS7B13PDZ/erd_image.png
   
 Hypothetical Use Case
+
    Labor trafficking is a overly unidentified crime. Comparing instances of labor trafficking with the wealth 
    and labor force of a nation, will allow agencies to recognize trends of source and destination countries.
-
