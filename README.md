@@ -1,16 +1,13 @@
 # Labor Exploitation
 Pulling together global human trafficking data in comparison to country wealth and labor force
 
-
-
-
 //Process of Extraction, Transformation, and Loading//
 
 Data Sources
 1. Counter Trafficking Data Collaborative: https://www.ctdatacollaborative.org/download-global-dataset
    
-   This dataset is the backbone of the project. Human Trafficking has always existed. However, in the US, it has 
-   only been a crime since 2000. This means that the exploitation of people was not tracked or measured with the 
+   This dataset is the backbone of the project. Human Trafficking has always existed but it wasn't until 2020 that the US
+   passed a law declaring it as a crime. This means that the exploitation of people was not tracked or measured with the 
    exception of the last 20 years. The lack of accurate, consistent data keeps us from identifying people who are suffering.
    The Counter Trafficking Data Collaborative is seeking to provide a solution by aggregating data 
    from five global agencies. This project was the perfect opportunity to attempt a database design for this challenging
@@ -25,12 +22,16 @@ Data Sources
   from 2012 - 2017. 
 
 Transformation
-  
+  Jessica: Restructured the main dataset to focus on reports and details of labor trafficking (the original included sex
+  trafficking data, as well as recruiting relationships). 
   
 Database
+  Initailly we determined that SQL would  provide a clear structure to our data. We wanted to use the country codes as the
+  primary key for our tables. Definitely would use MongoDB next time. 
   
-  
-SQL vs MongoDB
-  
+  Schema:https://files.slack.com/files-pri/TM10668R1-FS7B13PDZ/erd_image.png
   
 Hypothetical Use Case
+   Labor trafficking is a overly unidentified crime. Comparing instances of labor trafficking with the wealth 
+   and labor force of a nation, will allow agencies to recognize trends of source and destination countries.
+
