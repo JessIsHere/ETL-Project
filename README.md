@@ -28,16 +28,20 @@ Transformation
   removing or changing most of these values. After reading the documnentation associated with the data, we realized it was
   relevant to keep them in the database.
   
-  Mahatmi: Deleted duplicate data from the country codes csv file. The Alpha-2 codes contained "" around the codes in her csv.
-  She removed the "" from the codes so that they could act as keys in the database. 
+  Mahathi: The CSV file has country name, 2- digit , 3-digit , numeric country codes, also average Latitude and Longitude. 
+  We grabbed the columns Country, 2-digit country code in a dataframe, the 2-digit code has (""), So the string "replace"
+  function is used to filled the quotes("") with white spaces and the datframe is exported as CSV, which can be used for
+  importing in the database table.
     
-  Jeff: Looped through the API response to create a list of dictionaries that were appended to a list. Converted to a
-  dataframe and removed the aggregates entry. 
+  Jeff: As we wanted to be able to see if the income level of a country might impact exploitation trends, we made use of the
+  World Bank API to obtain income level for each country in the world.  The API also returned other data, such as latitude and
+  longitude, that we did not deem important, so we retained only the country code and country income.  These variables would
+  allow us to complete future research objectives.
  
   
 Database
 
-  Initailly we determined that SQL would  provide a clear structure to our data. We wanted to use the country codes as the
+  Initailly, we determined that SQL would provide a clear structure to our data. We wanted to use the country codes as the
   primary key for our tables. Definitely would use MongoDB next time. 
   
   Schema:https://files.slack.com/files-pri/TM10668R1-FS7B13PDZ/erd_image.png
