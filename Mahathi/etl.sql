@@ -22,7 +22,6 @@ add column country_id serial primary key
 
 -------table from dataframe
 
-select * from global_traffiking group by Gender
 
 select * from global_traffiking
 
